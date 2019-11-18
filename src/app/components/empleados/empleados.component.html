@@ -1,7 +1,27 @@
 <div class="container">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let empleado of empleados | async">
-        {{empleado.nombre}}
-      </li>
-    </ul>
-  </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Apellido y Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let empleado of empleados | async">
+                <th scope="row">{{empleado.dni}}</th>
+                <td>
+                    {{ empleado.apeliido | uppercase}}, {{ empleado.nombre }}
+                </td>
+                <td>{{ empleado.direccion  }}</td>
+                <td>{{ empleado.telefono  }}</td>
+                <td>
+                    <button type="button" class="btn btn-secondary"><fa-icon [icon]="faUserEdit"></fa-icon></button>
+                    <button type="button" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

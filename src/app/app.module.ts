@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { VacacionesComponent } from './components/vacaciones/vacaciones.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
