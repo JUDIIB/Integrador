@@ -10,15 +10,22 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { VacacionesComponent } from './components/vacaciones/vacaciones.component';
+import { EmpleadosAddEditComponent } from './components/empleados/empleados-add-edit/empleados-add-edit.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmpleadosComponent,
     NavComponent,
-    VacacionesComponent
+    VacacionesComponent,
+    EmpleadosAddEditComponent
+  ],
+  entryComponents:[
+    EmpleadosAddEditComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,

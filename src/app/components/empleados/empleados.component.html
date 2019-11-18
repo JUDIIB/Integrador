@@ -1,4 +1,7 @@
 <div class="container">
+    <button type="button" class="btn btn-primary" (click)="openModalAddEmpleado('ADD')">
+        <fa-icon [icon]="faUserPlus"></fa-icon>Agregar empleado
+    </button>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -18,8 +21,12 @@
                 <td>{{ empleado.direccion  }}</td>
                 <td>{{ empleado.telefono  }}</td>
                 <td>
-                    <button type="button" class="btn btn-secondary"><fa-icon [icon]="faUserEdit"></fa-icon></button>
-                    <button type="button" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    <button type="button" class="btn btn-secondary" (click)="openModalAddEmpleado('EDIT')">
+                        <fa-icon [icon]="faUserEdit"></fa-icon>
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
                 </td>
             </tr>
         </tbody>

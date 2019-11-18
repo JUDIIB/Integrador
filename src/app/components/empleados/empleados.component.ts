@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { faTrash,faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,faUserEdit,faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { EmpleadosAddEditComponent } from './empleados-add-edit/empleados-add-edit.component';
 
 @Component({
   selector: 'app-empleados',
@@ -11,11 +13,18 @@ import { faTrash,faUserEdit } from '@fortawesome/free-solid-svg-icons';
 export class EmpleadosComponent implements OnInit {
   faTrash=faTrash;
   faUserEdit=faUserEdit;
+  faUserPlus=faUserPlus;
   empleados: Observable<Empleado[]>;
-  constructor(db: AngularFirestore){
+  constructor(db: AngularFirestore,private modalService: NgbModal){
     this.empleados = db.collection<Empleado>('empleados').valueChanges();
   }
+  
   ngOnInit() {
+  }
+
+  openModalAddEmpleado(mode:'ADD'|'EDIT') {
+    let modalRef=this.modalService.open(EmpleadosAddEditComponent);
+    modalRef.componentInstance.mode=mode;
   }
 
 }
