@@ -24,7 +24,7 @@
                     <button type="button" class="btn btn-secondary" (click)="openModalAddEmpleado('EDIT')">
                         <fa-icon [icon]="faUserEdit"></fa-icon>
                     </button>
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger"  (click)="openModalConfirmDeleteEmpleado(empleado)">
                         <fa-icon [icon]="faTrash"></fa-icon>
                     </button>
                 </td>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-empleados-add-edit',
@@ -34,7 +35,7 @@ export class EmpleadosAddEditComponent implements OnInit {
 
 
   formEmpleado:FormGroup;
-  constructor(public activeModal: NgbActiveModal) { 
+  constructor(public activeModal: NgbActiveModal, private afs:AngularFirestore) { 
     this.crearFormEmpleado()
   }
 
@@ -50,8 +51,10 @@ export class EmpleadosAddEditComponent implements OnInit {
   }
 
   guardarDatos(){
-    console.log(this.formEmpleado);
-    
+    this.afs.collection('empleados').add(this.formEmpleado.value).then(doc=>{
+      //Obtiene el id del doc y lo setea como propiedad a fin de editar el documento después
+      this.afs.collection('empleados').doc(doc.id).update({id:doc.id})
+    })
   }
 
   ngOnInit() {

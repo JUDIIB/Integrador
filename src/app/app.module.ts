@@ -13,6 +13,8 @@ import { VacacionesComponent } from './components/vacaciones/vacaciones.componen
 import { EmpleadosAddEditComponent } from './components/empleados/empleados-add-edit/empleados-add-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbdModalConfirm } from './shared/modal-confirm/modal-confirm.component';
+
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     EmpleadosComponent,
     NavComponent,
     VacacionesComponent,
-    EmpleadosAddEditComponent
+    EmpleadosAddEditComponent,
+    NgbdModalConfirm
   ],
   entryComponents:[
-    EmpleadosAddEditComponent
+    EmpleadosAddEditComponent,
+    NgbdModalConfirm
   ],
   imports: [
     NgbModule,

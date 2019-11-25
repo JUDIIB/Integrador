@@ -1,4 +1,5 @@
 export interface Empleado {
+  id?:string;
   apeliido: string;
   nombre: string;
   direccion: string;
