@@ -1,4 +1,4 @@
-interface Empleado {
+export interface Empleado {
   apeliido: string;
   nombre: string;
   direccion: string;

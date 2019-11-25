@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { faTrash,faUserEdit,faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { EmpleadosAddEditComponent } from './empleados-add-edit/empleados-add-edit.component';
+import { Empleado } from 'src/app/interfaces/empleado.interface';
 
 @Component({
   selector: 'app-empleados',

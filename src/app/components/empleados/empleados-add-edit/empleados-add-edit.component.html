@@ -8,12 +8,63 @@
 <div class="modal-body">
     <form [formGroup]='formEmpleado' (ngSubmit)="guardarDatos()">
         <div class="form-group">
-            <label for="nombre" formControlName="nombre">Nombre</label>
-            <input type="email" class="form-control" id="nombre" placeholder="Fulano">
+            <label for="nombre">Nombre</label>
+            <input type="text" formControlName="nombre" class="form-control" id="nombre" placeholder="Fulano">
+            <ng-container *ngFor="let validation of validation_messages.nombre">
+                <ngb-alert
+                    *ngIf="formEmpleado.get('nombre').hasError(validation.type) && (formEmpleado.get('nombre').dirty || formEmpleado.get('nombre').touched)"
+                    [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+            </ng-container>
         </div>
+
         <div class="form-group">
-            <label for="apellido" formControlName="apellido">Apellido</label>
-            <input type="email" class="form-control" id="apellido" placeholder="Perez">
+            <label for="apellido">Apellido</label>
+            <input type="text" formControlName="apellido" class="form-control" id="apellido" placeholder="Perez">
+            <ng-container *ngFor="let validation of validation_messages.apellido">
+                <ngb-alert
+                    *ngIf="formEmpleado.get('apellido').hasError(validation.type) && (formEmpleado.get('apellido').dirty || formEmpleado.get('apellido').touched)"
+                    [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" class="form-control" id="email" placeholder="email@dominio.com">
+            <ng-container *ngFor="let validation of validation_messages.email">
+                <ngb-alert
+                    *ngIf="formEmpleado.get('email').hasError(validation.type) && (formEmpleado.get('email').dirty || formEmpleado.get('email').touched)"
+                    [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="dni">DNI</label>
+            <input type="number" formControlName="dni" class="form-control" id="dni" placeholder="123456789">
+            <ng-container *ngFor="let validation of validation_messages.dni">
+                <ngb-alert
+                    *ngIf="formEmpleado.get('dni').hasError(validation.type) && (formEmpleado.get('dni').dirty || formEmpleado.get('dni').touched)"
+                    [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="number" formControlName="telefono" class="form-control" id="telefono" placeholder="03624123456">
+            <ng-container *ngFor="let validation of validation_messages.telefono">
+                <ngb-alert
+                    *ngIf="formEmpleado.get('telefono').hasError(validation.type) && (formEmpleado.get('telefono').dirty || formEmpleado.get('telefono').touched)"
+                    [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="number" formControlName="direccion" class="form-control" id="direccion" placeholder="Somewhere 987">
+            <ng-container *ngFor="let validation of validation_messages.direccion">
+                <ngb-alert
+                    *ngIf="formEmpleado.get('direccion').hasError(validation.type) && (formEmpleado.get('direccion').dirty || formEmpleado.get('direccion').touched)"
+                    [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+            </ng-container>
         </div>
         <button type="submit" class="btn btn-primary">Guardar datos</button>
     </form>

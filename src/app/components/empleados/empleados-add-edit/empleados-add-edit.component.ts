@@ -9,6 +9,30 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class EmpleadosAddEditComponent implements OnInit {
   @Input() mode: 'ADD'|'EDIT';
+
+  validation_messages = {
+    'email': [
+      { type: 'required', message: 'Debe ingresar su email' },
+      { type: 'email', message: 'Debe ingresar un email válido.' }
+    ],
+    'nombre': [
+      { type: 'required', message: 'Debe ingresar el nombre' }
+    ],
+    'apellido': [
+      { type: 'required', message: 'Debe ingresar el apellido' },
+    ],
+    'dni': [
+      { type: 'required', message: 'Debe ingresar el DNI' },
+    ],
+    'telefono': [
+      { type: 'required', message: 'Debe ingresar el teléfono' },
+    ],
+    'direccion': [
+      { type: 'required', message: 'Debe ingresar la dirección' },
+    ]
+  };
+
+
   formEmpleado:FormGroup;
   constructor(public activeModal: NgbActiveModal) { 
     this.crearFormEmpleado()
@@ -16,6 +40,7 @@ export class EmpleadosAddEditComponent implements OnInit {
 
   crearFormEmpleado(){
     this.formEmpleado=new FormGroup({
+      'email':new FormControl(null,[Validators.required,Validators.email]),
       'nombre':new FormControl(null,Validators.required),
       'apellido':new FormControl(null,Validators.required),
       'telefono':new FormControl(null,Validators.required),
