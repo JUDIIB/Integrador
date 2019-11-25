@@ -5,3 +5,11 @@ interface Empleado {
   dni: number;
   telefono: number;
 }
+
+export const defaultEmpleado:Empleado={
+  apeliido:'',
+  nombre:'',
+  direccion:'',
+  dni:null,
+  telefono:null
+}

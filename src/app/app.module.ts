@@ -12,6 +12,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { VacacionesComponent } from './components/vacaciones/vacaciones.component';
 import { EmpleadosAddEditComponent } from './components/empleados/empleados-add-edit/empleados-add-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     NgbModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,

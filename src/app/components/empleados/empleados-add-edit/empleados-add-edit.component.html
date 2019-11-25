@@ -6,7 +6,17 @@
     </button>
 </div>
 <div class="modal-body">
-    <p>Hello</p>
+    <form [formGroup]='formEmpleado' (ngSubmit)="guardarDatos()">
+        <div class="form-group">
+            <label for="nombre" formControlName="nombre">Nombre</label>
+            <input type="email" class="form-control" id="nombre" placeholder="Fulano">
+        </div>
+        <div class="form-group">
+            <label for="apellido" formControlName="apellido">Apellido</label>
+            <input type="email" class="form-control" id="apellido" placeholder="Perez">
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar datos</button>
+    </form>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
