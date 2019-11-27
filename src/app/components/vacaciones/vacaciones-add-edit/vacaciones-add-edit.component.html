@@ -6,15 +6,27 @@
     </button>
 </div>
 <div class="modal-body">
-    <ngb-alert *ngIf="updated" [type]="'success'" [dismissible]="false">Se han actualizado los datos de  las vacaciones
+    <ngb-alert *ngIf="updated" [type]="'success'" [dismissible]="false">Se han actualizado los datos de las vacaciones
     </ngb-alert>
     <ngb-alert *ngIf="added" [type]="'success'" [dismissible]="false">Los datos de las vacaciones han sido registrados
     </ngb-alert>
     <form [formGroup]='formVacacion' (ngSubmit)="mode=='ADD'?agregarDatos():editarDatos()">
+        <div class="form-group">
+            <label for="empleado_id">Empleado</label>
+            <select formControlName="empleado_id" id="empleado_id">
+                <option [value]="empleado.id"  *ngFor="let empleado of $empleados | async">{{empleado.nombre}} {{empleado.apellido}}</option>
+            </select>
+            <ng-container *ngFor="let validation of validation_messages.empleado_id">
+                <ngb-alert
+                    *ngIf="formVacacion.get('empleado_id').hasError(validation.type) && (formVacacion.get('empleado_id').dirty || formVacacion.get('empleado_id').touched)"
+                    [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+            </ng-container>
+        </div>
 
         <div class="form-group">
-            <label for="apellido">Descripción</label>
-            <textarea formControlName="descripcion" rows="5"  class="form-control" placeholder="Descripción de las vacaciones"></textarea>
+            <label for="descripcion">Descripción</label>
+            <textarea formControlName="descripcion" id="descripcion" rows="5" class="form-control"
+                placeholder="Descripción de las vacaciones"></textarea>
             <ng-container *ngFor="let validation of validation_messages.descripcion">
                 <ngb-alert
                     *ngIf="formVacacion.get('descripcion').hasError(validation.type) && (formVacacion.get('descripcion').dirty || formVacacion.get('descripcion').touched)"
@@ -23,7 +35,7 @@
         </div>
 
         <app-range-datepicker (dateChanged)="setDates($event)"></app-range-datepicker>
-       
+
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Guardar datos</button>
         </div>

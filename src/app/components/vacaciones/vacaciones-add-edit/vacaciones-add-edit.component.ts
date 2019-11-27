@@ -4,6 +4,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { VacacionService } from 'src/app/services/vacacion.service';
 import { DateRange } from 'src/app/interfaces/date-range.interface';
+import { Observable } from 'rxjs';
+import { Empleado } from 'src/app/interfaces/empleado.interface';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-vacaciones-add-edit',
@@ -14,6 +17,7 @@ export class VacacionesAddEditComponent implements OnInit {
 
   @Input() mode: 'ADD' | 'EDIT';
   @Input() vacacionToEdit: Vacacion;
+  $empleados: Observable<Empleado[]>;
   updated: boolean = false;
   added: boolean = false;
 
@@ -33,12 +37,15 @@ export class VacacionesAddEditComponent implements OnInit {
   };
 
   formVacacion: FormGroup;
-  constructor(public activeModal: NgbActiveModal, private _vacacionService: VacacionService) {
-    this.crearFormEmpleado();
+  constructor(public activeModal: NgbActiveModal,
+    private _empleadosService: EmpleadosService,
+    private _vacacionService: VacacionService) {
+    this.crearFormVacacion();
+    this.$empleados =_empleadosService.getEmpleados();
   }
 
 
-  crearFormEmpleado() {
+  crearFormVacacion() {
     this.formVacacion = new FormGroup({
       'id': new FormControl(null),
       'descripcion': new FormControl(null, Validators.required),
@@ -58,9 +65,9 @@ export class VacacionesAddEditComponent implements OnInit {
     }
   }
 
-  setDates(date_range:DateRange){
+  setDates(date_range: DateRange) {
     console.log(date_range);
-    
+
   }
 
   agregarDatos() {
