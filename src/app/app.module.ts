@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbdModalConfirm } from './shared/modal-confirm/modal-confirm.component';
 import { EmpleadosService } from './services/empleados.service';
+import { DecimalPipe } from '@angular/common';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { EmpleadosService } from './services/empleados.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [EmpleadosService],
+  providers: [EmpleadosService,DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

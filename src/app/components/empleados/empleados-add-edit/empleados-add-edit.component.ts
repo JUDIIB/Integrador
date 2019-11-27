@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Empleado } from 'src/app/interfaces/empleado.interface';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 
@@ -67,7 +66,7 @@ export class EmpleadosAddEditComponent implements OnInit {
   }
 
 
-  guardarDatos(){
+  agregarDatos(){
     this._empleadosService.addEmpleado(this.formEmpleado.value).then(doc=>{
       this.added=true;
     })

@@ -1,7 +1,19 @@
 <div class="container">
-    <button type="button" class="btn btn-primary" (click)="openModalAddEmpleado('ADD')">
-        <fa-icon [icon]="faUserPlus"></fa-icon>Agregar empleado
-    </button>
+    <form [formGroup]="filterForm">
+
+        <div class="row">
+            <div class="col-md-8">
+                <input class="form-control " type="text" formControlName="filter" placeholder="Buscar empleado" />
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary float-right" (click)="openModalAddEmpleado('ADD')">
+                    <fa-icon [icon]="faUserPlus"></fa-icon>Agregar empleado
+                </button>
+            </div>
+        </div>
+
+    </form>
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -14,17 +26,27 @@
         </thead>
         <tbody>
             <tr *ngFor="let empleado of empleados | async">
-                <th scope="row">{{empleado.dni}}</th>
+                <th scope="row">
+                    <ngb-highlight [result]="empleado.dni" [term]="filterForm.controls['filter'].value">
+                    </ngb-highlight>
+                </th>
                 <td>
-                    {{ empleado.apeliido | uppercase}}, {{ empleado.nombre }}
+                    <ngb-highlight [result]="(empleado.apellido | uppercase)+' '+empleado.nombre"
+                        [term]="filterForm.controls['filter'].value"></ngb-highlight>
                 </td>
-                <td>{{ empleado.direccion  }}</td>
-                <td>{{ empleado.telefono  }}</td>
+                <td>
+                    <ngb-highlight [result]="empleado.direccion" [term]="filterForm.controls['filter'].value">
+                    </ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="empleado.telefono" [term]="filterForm.controls['filter'].value">
+                    </ngb-highlight>
+                </td>
                 <td>
                     <button type="button" class="btn btn-secondary" (click)="openModalAddEmpleado('EDIT',empleado)">
                         <fa-icon [icon]="faUserEdit"></fa-icon>
                     </button>
-                    <button type="button" class="btn btn-danger"  (click)="openModalConfirmDeleteEmpleado(empleado)">
+                    <button type="button" class="btn btn-danger" (click)="openModalConfirmDeleteEmpleado(empleado)">
                         <fa-icon [icon]="faTrash"></fa-icon>
                     </button>
                 </td>

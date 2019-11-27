@@ -7,6 +7,7 @@ import { EmpleadosAddEditComponent } from './empleados-add-edit/empleados-add-ed
 import { Empleado } from 'src/app/interfaces/empleado.interface';
 import { NgbdModalConfirm } from '../../shared/modal-confirm/modal-confirm.component';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-empleados',
@@ -18,8 +19,15 @@ export class EmpleadosComponent implements OnInit {
   faUserEdit=faUserEdit;
   faUserPlus=faUserPlus;
   empleados: Observable<Empleado[]>;
+  filterForm = new FormGroup({
+    'filter':new FormControl('')
+  })
+
   constructor(private _empleadosService:EmpleadosService,private modalService: NgbModal){
-    this.empleados = _empleadosService.getEmpleados()
+    this.empleados = _empleadosService.getEmpleados();
+    this.filterForm.controls['filter'].valueChanges.subscribe(filterString=>{
+      _empleadosService.$filterTerm.next(filterString)
+    })
   }
   
   ngOnInit() {

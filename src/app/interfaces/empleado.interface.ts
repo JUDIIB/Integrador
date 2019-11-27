@@ -1,6 +1,6 @@
 export interface Empleado {
   id?:string;
-  apeliido: string;
+  apellido: string;
   nombre: string;
   direccion: string;
   dni: number;
@@ -8,7 +8,7 @@ export interface Empleado {
 }
 
 export const defaultEmpleado:Empleado={
-  apeliido:'',
+  apellido:'',
   nombre:'',
   direccion:'',
   dni:null,
