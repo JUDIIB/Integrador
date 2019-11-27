@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Empleado } from 'src/app/interfaces/empleado.interface';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-empleados-add-edit',
@@ -10,10 +12,13 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class EmpleadosAddEditComponent implements OnInit {
   @Input() mode: 'ADD'|'EDIT';
+  @Input() empleadoToEdit: Empleado;
+  updated:boolean=false;
+  added:boolean=false;
 
   validation_messages = {
     'email': [
-      { type: 'required', message: 'Debe ingresar su email' },
+      { type: 'required', message: 'Debe ingresar un email' },
       { type: 'email', message: 'Debe ingresar un email válido.' }
     ],
     'nombre': [
@@ -33,31 +38,45 @@ export class EmpleadosAddEditComponent implements OnInit {
     ]
   };
 
-
   formEmpleado:FormGroup;
-  constructor(public activeModal: NgbActiveModal, private afs:AngularFirestore) { 
-    this.crearFormEmpleado()
+  constructor(public activeModal: NgbActiveModal, private _empleadosService:EmpleadosService) { 
+    this.crearFormEmpleado();
   }
+  
 
   crearFormEmpleado(){
     this.formEmpleado=new FormGroup({
+      'id':new FormControl(null),
       'email':new FormControl(null,[Validators.required,Validators.email]),
       'nombre':new FormControl(null,Validators.required),
       'apellido':new FormControl(null,Validators.required),
       'telefono':new FormControl(null,Validators.required),
-      'dni':new FormControl(null,Validators.required),
+      'dni': new FormControl(null,Validators.required),
       'direccion':new FormControl(null,Validators.required),
-    })
-  }
-
-  guardarDatos(){
-    this.afs.collection('empleados').add(this.formEmpleado.value).then(doc=>{
-      //Obtiene el id del doc y lo setea como propiedad a fin de editar el documento después
-      this.afs.collection('empleados').doc(doc.id).update({id:doc.id})
+    });
+    this.formEmpleado.valueChanges.subscribe(newData=>{
+      this.added=false;
+      this.updated=false;
     })
   }
 
   ngOnInit() {
+    if(this.empleadoToEdit){
+      this.formEmpleado.setValue(this.empleadoToEdit)
+    }
+  }
+
+
+  guardarDatos(){
+    this._empleadosService.addEmpleado(this.formEmpleado.value).then(doc=>{
+      this.added=true;
+    })
+  }
+
+  editarDatos(){
+    this._empleadosService.updateEmpleado(this.formEmpleado.value).then(doc=>{
+      this.updated=true;
+    })
   }
 
 }

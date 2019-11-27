@@ -14,6 +14,7 @@ import { EmpleadosAddEditComponent } from './components/empleados/empleados-add-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbdModalConfirm } from './shared/modal-confirm/modal-confirm.component';
+import { EmpleadosService } from './services/empleados.service';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { NgbdModalConfirm } from './shared/modal-confirm/modal-confirm.component
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [],
+  providers: [EmpleadosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -21,7 +21,7 @@
                 <td>{{ empleado.direccion  }}</td>
                 <td>{{ empleado.telefono  }}</td>
                 <td>
-                    <button type="button" class="btn btn-secondary" (click)="openModalAddEmpleado('EDIT')">
+                    <button type="button" class="btn btn-secondary" (click)="openModalAddEmpleado('EDIT',empleado)">
                         <fa-icon [icon]="faUserEdit"></fa-icon>
                     </button>
                     <button type="button" class="btn btn-danger"  (click)="openModalConfirmDeleteEmpleado(empleado)">

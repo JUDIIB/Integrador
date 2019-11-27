@@ -6,6 +6,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { EmpleadosAddEditComponent } from './empleados-add-edit/empleados-add-edit.component';
 import { Empleado } from 'src/app/interfaces/empleado.interface';
 import { NgbdModalConfirm } from '../../shared/modal-confirm/modal-confirm.component';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-empleados',
@@ -17,16 +18,19 @@ export class EmpleadosComponent implements OnInit {
   faUserEdit=faUserEdit;
   faUserPlus=faUserPlus;
   empleados: Observable<Empleado[]>;
-  constructor(private db: AngularFirestore,private modalService: NgbModal){
-    this.empleados = db.collection<Empleado>('empleados').valueChanges();
+  constructor(private _empleadosService:EmpleadosService,private modalService: NgbModal){
+    this.empleados = _empleadosService.getEmpleados()
   }
   
   ngOnInit() {
   }
 
-  openModalAddEmpleado(mode:'ADD'|'EDIT') {
+  openModalAddEmpleado(mode:'ADD'|'EDIT',empleado?:Empleado) {
     let modalRef=this.modalService.open(EmpleadosAddEditComponent);
     modalRef.componentInstance.mode=mode;
+    if(empleado){
+      modalRef.componentInstance.empleadoToEdit=empleado
+    }      
   }
 
   openModalConfirmDeleteEmpleado(empleado:Empleado) {
@@ -37,7 +41,7 @@ export class EmpleadosComponent implements OnInit {
     modalRef.componentInstance.text_danger="Esta acción no puede ser revertida";
     // modalRef.componentInstance.cbYes.bind(this);
     modalRef.componentInstance.cbYes=()=>{
-      this.db.collection('empleados').doc(empleado.id).delete()
+      this._empleadosService.deleteEmpleado(empleado)
     }
 
   }
