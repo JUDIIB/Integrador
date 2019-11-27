@@ -13,7 +13,7 @@
         </div>
 
     </form>
-
+    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -31,7 +31,7 @@
                     </ngb-highlight>
                 </th>
                 <td>
-                    <ngb-highlight [result]="(empleado.apellido | uppercase)+' '+empleado.nombre"
+                    <ngb-highlight [result]="(empleado.apellido | uppercase)+', '+empleado.nombre"
                         [term]="filterForm.controls['filter'].value"></ngb-highlight>
                 </td>
                 <td>

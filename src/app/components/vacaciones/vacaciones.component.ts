@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Vacacion } from 'src/app/interfaces/vacacion.interface';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VacacionesAddEditComponent } from './vacaciones-add-edit/vacaciones-add-edit.component';
 
 @Component({
   selector: 'app-vacaciones',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VacacionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
+  }
+
+  openModalAddVacacion(mode:'ADD'|'EDIT',vacacion?:Vacacion) {
+    let modalRef=this.modalService.open(VacacionesAddEditComponent);
+    modalRef.componentInstance.mode=mode;
+    if(vacacion){
+      modalRef.componentInstance.vacacionToEdit=vacacion
+    }      
   }
 
 }

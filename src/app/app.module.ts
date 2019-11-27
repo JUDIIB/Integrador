@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbdModalConfirm } from './shared/modal-confirm/modal-confirm.component';
 import { EmpleadosService } from './services/empleados.service';
 import { DecimalPipe } from '@angular/common';
+import { VacacionesAddEditComponent } from './components/vacaciones/vacaciones-add-edit/vacaciones-add-edit.component';
+import { RangeDatepickerComponent } from './shared/range-datepicker/range-datepicker.component';
 
 
 @NgModule({
@@ -25,10 +27,13 @@ import { DecimalPipe } from '@angular/common';
     NavComponent,
     VacacionesComponent,
     EmpleadosAddEditComponent,
-    NgbdModalConfirm
+    NgbdModalConfirm,
+    VacacionesAddEditComponent,
+    RangeDatepickerComponent
   ],
   entryComponents:[
     EmpleadosAddEditComponent,
+    VacacionesAddEditComponent,
     NgbdModalConfirm
   ],
   imports: [

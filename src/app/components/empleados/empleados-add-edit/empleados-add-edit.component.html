@@ -6,7 +6,11 @@
     </button>
 </div>
 <div class="modal-body">
-    <form [formGroup]='formEmpleado' (ngSubmit)="mode=='ADD'?agregarDatos():editarDatos()">  
+    <ngb-alert *ngIf="updated" [type]="'success'" [dismissible]="false">Se han actualizado los datos del empleado
+    </ngb-alert>
+    <ngb-alert *ngIf="added" [type]="'success'" [dismissible]="false">El empleado ha sido registrado
+    </ngb-alert>
+    <form [formGroup]='formEmpleado' (ngSubmit)="mode=='ADD'?agregarDatos():editarDatos()">
         <div class="form-group">
             <label for="nombre">Nombre</label>
             <input type="text" formControlName="nombre" class="form-control" id="nombre" placeholder="Fulano">
@@ -19,7 +23,7 @@
 
         <div class="form-group">
             <label for="apellido">Apellido</label>
-            <input type="text" formControlName="apellido" class="form-control" id="apellido" placeholder="Perez">
+            <input type="text" formControlName="apellido" class="form-control"  placeholder="De Tal">            
             <ng-container *ngFor="let validation of validation_messages.apellido">
                 <ngb-alert
                     *ngIf="formEmpleado.get('apellido').hasError(validation.type) && (formEmpleado.get('apellido').dirty || formEmpleado.get('apellido').touched)"
@@ -49,7 +53,8 @@
 
         <div class="form-group">
             <label for="telefono">Teléfono</label>
-            <input type="number" formControlName="telefono" class="form-control" id="telefono" placeholder="03624123456">
+            <input type="number" formControlName="telefono" class="form-control" id="telefono"
+                placeholder="03624123456">
             <ng-container *ngFor="let validation of validation_messages.telefono">
                 <ngb-alert
                     *ngIf="formEmpleado.get('telefono').hasError(validation.type) && (formEmpleado.get('telefono').dirty || formEmpleado.get('telefono').touched)"
@@ -59,7 +64,8 @@
 
         <div class="form-group">
             <label for="direccion">Dirección</label>
-            <input type="text" formControlName="direccion" class="form-control" id="direccion" placeholder="Somewhere 987">
+            <input type="text" formControlName="direccion" class="form-control" id="direccion"
+                placeholder="Somewhere 987">
             <ng-container *ngFor="let validation of validation_messages.direccion">
                 <ngb-alert
                     *ngIf="formEmpleado.get('direccion').hasError(validation.type) && (formEmpleado.get('direccion').dirty || formEmpleado.get('direccion').touched)"
