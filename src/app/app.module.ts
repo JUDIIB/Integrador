@@ -18,6 +18,7 @@ import { EmpleadosService } from './services/empleados.service';
 import { DecimalPipe } from '@angular/common';
 import { VacacionesAddEditComponent } from './components/vacaciones/vacaciones-add-edit/vacaciones-add-edit.component';
 import { RangeDatepickerComponent } from './shared/range-datepicker/range-datepicker.component';
+import { VacacionesService } from './services/vacaciones.service';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { RangeDatepickerComponent } from './shared/range-datepicker/range-datepi
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [EmpleadosService,DecimalPipe],
+  providers: [EmpleadosService,VacacionesService,DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

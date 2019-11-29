@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DateRange } from 'src/app/interfaces/date-range.interface';
 
@@ -11,16 +11,23 @@ export class RangeDatepickerComponent implements OnInit {
 
   hoveredDate: NgbDate;
   @Output() dateChanged = new EventEmitter<DateRange>();
+  @Input() fromDateInput: string;
+  @Input() toDateInput: string;
 
   fromDate: NgbDate;
   toDate: NgbDate;
 
-  constructor(calendar: NgbCalendar) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+  constructor(private calendar: NgbCalendar) {
+  }
+
+  parseDateAsNgbDate(date:Date){
+    return new NgbDate(date.getFullYear(),date.getMonth(),date.getDate());
   }
 
   ngOnInit() {
+    //Si los valores del input son nulos entonces setea un rango predefinido
+    this.fromDate = (this.fromDateInput)?this.parseDateAsNgbDate(new Date(this.fromDateInput)):this.calendar.getToday();
+    this.toDate =  (this.toDateInput)?this.parseDateAsNgbDate(new Date(this.toDateInput)):this.calendar.getNext(this.calendar.getToday(), 'd', 10);
   }
 
   onDateSelection(date: NgbDate) {
@@ -32,14 +39,11 @@ export class RangeDatepickerComponent implements OnInit {
       this.toDate = null;
       this.fromDate = date;
     }
-    console.log({
-      fromDate:this.fromDate,
-      toDate:this.toDate
-    });
+
     
     this.dateChanged.emit({
-      fromDate:this.fromDate,
-      toDate:this.toDate
+      fromDate:new Date(this.fromDate.year,this.fromDate.month,this.fromDate.day).toISOString(),
+      toDate:new Date(this.toDate.year,this.toDate.month,this.toDate.day).toISOString()
     })
   }
 
