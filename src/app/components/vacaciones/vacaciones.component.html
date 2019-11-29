@@ -1,7 +1,4 @@
 <div class="container">
-    <div class="container">
-
-    </div>
     <form [formGroup]="filterForm">
 
         <div class="row">
@@ -16,13 +13,16 @@
         </div>
 
     </form>
-
-    <table class="table table-striped">
+    <br>
+    <ngb-alert *ngIf="(vacaciones | async)?.length==0" type="primary" [dismissible]="false">No hay ninguna vacación registrada
+    </ngb-alert>
+    <table class="table table-striped" [hidden]="(vacaciones | async)?.length==0">
         <thead>
             <tr>
                 <th scope="col">Empleado</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Período</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
