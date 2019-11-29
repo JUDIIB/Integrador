@@ -45,7 +45,7 @@ export class VacacionesComponent implements OnInit {
     modalRef.componentInstance.text_danger="Esta acción no puede ser revertida";
     // modalRef.componentInstance.cbYes.bind(this);
     modalRef.componentInstance.cbYes=()=>{
-      // this._vacacionesService.deleteVacacion(vacacion)
+      this._vacacionesService.deleteVacacion(vacacion)
     }
 
   }

@@ -21,4 +21,15 @@ export class VacacionesService {
       resolve();
     })
   }
+
+  editVacacion(vacacion:Vacacion){
+    return new Promise(async (resolve,reject)=>{
+      await this.afs.collection(VACACIONES_COLLECTION).doc(vacacion.id).update(vacacion);
+      resolve()
+    })
+  }
+
+  deleteVacacion(vacacion:Vacacion){
+    this.afs.collection(VACACIONES_COLLECTION).doc(vacacion.id).delete()
+  }
 }

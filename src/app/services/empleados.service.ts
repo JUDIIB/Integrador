@@ -53,7 +53,7 @@ export class EmpleadosService {
     })
   }
 
-  deleteEmpleado(empleado){
+  deleteEmpleado(empleado:Empleado){
     this.afs.collection(EMPLEADOS_COLLECTION).doc(empleado.id).delete()
   }
 }

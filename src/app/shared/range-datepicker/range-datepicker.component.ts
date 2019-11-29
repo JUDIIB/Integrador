@@ -21,13 +21,14 @@ export class RangeDatepickerComponent implements OnInit {
   }
 
   parseDateAsNgbDate(date:Date){
-    return new NgbDate(date.getFullYear(),date.getMonth(),date.getDate());
+    return new NgbDate(date.getFullYear(),date.getMonth()+1,date.getDate());
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     //Si los valores del input son nulos entonces setea un rango predefinido
     this.fromDate = (this.fromDateInput)?this.parseDateAsNgbDate(new Date(this.fromDateInput)):this.calendar.getToday();
     this.toDate =  (this.toDateInput)?this.parseDateAsNgbDate(new Date(this.toDateInput)):this.calendar.getNext(this.calendar.getToday(), 'd', 10);
+    // console.log(this.fromDate);
   }
 
   onDateSelection(date: NgbDate) {
@@ -39,11 +40,10 @@ export class RangeDatepickerComponent implements OnInit {
       this.toDate = null;
       this.fromDate = date;
     }
-
     
     this.dateChanged.emit({
-      fromDate:new Date(this.fromDate.year,this.fromDate.month,this.fromDate.day).toISOString(),
-      toDate:new Date(this.toDate.year,this.toDate.month,this.toDate.day).toISOString()
+      fromDate:new Date(this.fromDate.year,this.fromDate.month-1,this.fromDate.day).toUTCString(),
+      toDate:new Date(this.toDate.year,this.toDate.month-1,this.toDate.day).toUTCString()
     })
   }
 
