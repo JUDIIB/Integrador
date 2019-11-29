@@ -45,7 +45,7 @@ export class EmpleadosComponent implements OnInit {
     let modalRef=this.modalService.open(NgbdModalConfirm);
     modalRef.componentInstance.header="Eliminar empleado";
     modalRef.componentInstance.titulo="¿Está seguro que desea eliminar el empleado?";
-    modalRef.componentInstance.description="El empleado será eliminado definitivamente";
+    modalRef.componentInstance.description="El empleado será eliminado definitivamente.";
     modalRef.componentInstance.text_danger="Esta acción no puede ser revertida";
     // modalRef.componentInstance.cbYes.bind(this);
     modalRef.componentInstance.cbYes=()=>{

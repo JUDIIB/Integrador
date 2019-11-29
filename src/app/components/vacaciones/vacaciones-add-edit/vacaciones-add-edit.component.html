@@ -13,7 +13,7 @@
     <form [formGroup]='formVacacion' (ngSubmit)="mode=='ADD'?agregarDatos():editarDatos()">
         <div class="form-group">
             <label for="empleado_id">Empleado</label>
-            <select formControlName="empleado_id" id="empleado_id">
+            <select formControlName="empleado_id" id="empleado_id" class="form-control">
                 <option [value]="empleado.id"  *ngFor="let empleado of $empleados | async">{{empleado.nombre}} {{empleado.apellido}}</option>
             </select>
             <ng-container *ngFor="let validation of validation_messages.empleado_id">
@@ -34,9 +34,9 @@
             </ng-container>
         </div>
 
-        <app-range-datepicker (dateChanged)="setDates($event)"></app-range-datepicker>
+        <app-range-datepicker (dateChanged)="setDates($event)" [fromDateInput]="formVacacion.get('fecha_inicio').value" [toDateInput]="formVacacion.get('fecha_fin').value"></app-range-datepicker>
 
-        <div class="text-center">
+        <div class="text-center">   
             <button type="submit" class="btn btn-primary">Guardar datos</button>
         </div>
     </form>

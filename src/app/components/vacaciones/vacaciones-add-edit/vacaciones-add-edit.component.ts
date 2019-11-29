@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Vacacion } from 'src/app/interfaces/vacacion.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VacacionService } from 'src/app/services/vacacion.service';
+import { VacacionesService } from 'src/app/services/vacaciones.service';
 import { DateRange } from 'src/app/interfaces/date-range.interface';
 import { Observable } from 'rxjs';
 import { Empleado } from 'src/app/interfaces/empleado.interface';
@@ -39,7 +39,7 @@ export class VacacionesAddEditComponent implements OnInit {
   formVacacion: FormGroup;
   constructor(public activeModal: NgbActiveModal,
     private _empleadosService: EmpleadosService,
-    private _vacacionService: VacacionService) {
+    private _vacacionesService: VacacionesService) {
     this.crearFormVacacion();
     this.$empleados =_empleadosService.getEmpleados();
   }
@@ -66,12 +66,12 @@ export class VacacionesAddEditComponent implements OnInit {
   }
 
   setDates(date_range: DateRange) {
-    console.log(date_range);
-
+    this.formVacacion.controls['fecha_inicio'].setValue(date_range.fromDate);
+    this.formVacacion.controls['fecha_fin'].setValue(date_range.toDate);
   }
 
   agregarDatos() {
-
+    this._vacacionesService.addVacacion(this.formVacacion.value)
   }
 
   editarDatos() {

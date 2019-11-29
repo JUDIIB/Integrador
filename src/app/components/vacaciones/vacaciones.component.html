@@ -1,3 +1,54 @@
-<button type="button" class="btn btn-primary float-right" (click)="openModalAddVacacion('ADD')">
-    <fa-icon [icon]="faUserPlus"></fa-icon>Agregar vacación
-</button>
+<div class="container">
+    <div class="container">
+
+    </div>
+    <form [formGroup]="filterForm">
+
+        <div class="row">
+            <div class="col-md-8">
+                <input class="form-control " type="text" formControlName="filter" placeholder="Buscar vacación" />
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary float-right" (click)="openModalAddVacacion('ADD')">
+                    <fa-icon [icon]="faPlus"></fa-icon>Agregar vacación
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Empleado</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Período</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vacacion of vacaciones | async">
+                <th scope="row">
+                    <ngb-highlight [result]="vacacion.empleado_id" [term]="filterForm.controls['filter'].value">
+                    </ngb-highlight>
+                </th>
+                <td>
+                    <ngb-highlight [result]="vacacion.descripcion" [term]="filterForm.controls['filter'].value">
+                    </ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="(vacacion.fecha_inicio | date)+' a '+ (vacacion.fecha_fin | date)"
+                        [term]="filterForm.controls['filter'].value">
+                    </ngb-highlight>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-secondary" (click)="openModalAddVacacion('EDIT',vacacion)">
+                        <fa-icon [icon]="faEdit"></fa-icon>
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="openModalConfirmDeleteVacacion(vacacion)">
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
