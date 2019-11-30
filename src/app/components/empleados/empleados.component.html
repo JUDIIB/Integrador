@@ -2,10 +2,10 @@
     <form [formGroup]="filterForm">
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <input class="form-control " type="text" formControlName="filter" placeholder="Buscar empleado" />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <button type="button" class="btn btn-primary float-right" (click)="openModalAddEmpleado('ADD')">
                     <fa-icon [icon]="faUserPlus"></fa-icon>Agregar empleado
                 </button>
@@ -19,7 +19,7 @@
             <tr>
                 <th scope="col">DNI</th>
                 <th scope="col">Apellido y Nombre</th>
-                <th scope="col">Direccion</th>
+                <th scope="col">Email</th>
                 <th scope="col">Telefono</th>
                 <th scope="col">Acciones</th>
             </tr>
@@ -35,7 +35,7 @@
                         [term]="filterForm.controls['filter'].value"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="empleado.direccion" [term]="filterForm.controls['filter'].value">
+                    <ngb-highlight [result]="empleado.email" [term]="filterForm.controls['filter'].value">
                     </ngb-highlight>
                 </td>
                 <td>

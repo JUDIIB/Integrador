@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +19,11 @@ import { DecimalPipe } from '@angular/common';
 import { VacacionesAddEditComponent } from './components/vacaciones/vacaciones-add-edit/vacaciones-add-edit.component';
 import { RangeDatepickerComponent } from './shared/range-datepicker/range-datepicker.component';
 import { VacacionesService } from './services/vacaciones.service';
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
 
+// the second parameter is optional
+registerLocaleData(localeEsAr);
 
 @NgModule({
   declarations: [
@@ -32,7 +36,7 @@ import { VacacionesService } from './services/vacaciones.service';
     VacacionesAddEditComponent,
     RangeDatepickerComponent
   ],
-  entryComponents:[
+  entryComponents: [
     EmpleadosAddEditComponent,
     VacacionesAddEditComponent,
     NgbdModalConfirm
@@ -46,7 +50,11 @@ import { VacacionesService } from './services/vacaciones.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [EmpleadosService,VacacionesService,DecimalPipe],
+  providers: [
+    EmpleadosService,
+    VacacionesService,
+    { provide: LOCALE_ID, useValue: 'es-AR' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

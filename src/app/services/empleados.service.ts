@@ -40,7 +40,7 @@ export class EmpleadosService {
       
       return empleado.nombre.toLowerCase().includes(term)
           || empleado.apellido.toLowerCase().includes(term)
-          || empleado.direccion.toLowerCase().includes(term)
+          || empleado.email.toLowerCase().includes(term)
           || empleado.dni.toString().includes(term)
           || empleado.telefono.toString().includes(term)
     });
