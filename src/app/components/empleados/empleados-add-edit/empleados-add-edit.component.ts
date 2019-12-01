@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Empleado } from 'src/app/interfaces/empleado.interface';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Roles } from 'src/app/services/roles.data';
+import * as _ from  'lodash';
+import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-empleados-add-edit',
@@ -75,11 +77,9 @@ export class EmpleadosAddEditComponent implements OnInit {
 
 
   agregarDatos(){
-    console.log(this.formEmpleado);
-    
-    /* this._empleadosService.addEmpleado(this.formEmpleado.value).then(doc=>{
+    this._empleadosService.addEmpleado(this.formEmpleado.value).then(doc=>{
       this.added=true;
-    }) */
+    })
   }
 
   editarDatos(){
@@ -91,7 +91,12 @@ export class EmpleadosAddEditComponent implements OnInit {
   existeEmpleadoConDni(control: FormControl) {
     let promiseEmpleado=new Promise((resolve,reject)=>{
       this._empleadosService.existeEmpleadoConDni(control.value).subscribe((data) => {
-        if (!data.empty) {
+        let doc:QueryDocumentSnapshot<Empleado>=_.find(data.docs,(doc:QueryDocumentSnapshot<Empleado>)=>{
+          //Se debe comprobar el dni duplicado con un empleado  que no  sea el actual
+          //Sirve para cuando se quiere  modificar el empleado
+          return doc.id!=this.formEmpleado.get('id').value
+        });
+        if (doc!=undefined) {
           resolve({ existeEmpleadoConDni: true })
         } else {
           resolve(null);
