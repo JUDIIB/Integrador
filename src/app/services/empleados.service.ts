@@ -25,6 +25,10 @@ export class EmpleadosService {
     return this.$empleados;
   }
 
+  existeEmpleadoConDni(dni:number){
+    return this.afs.collection<Empleado>(EMPLEADOS_COLLECTION, ref => ref.where('dni', '==', dni)).get()
+  }
+
   addEmpleado(empleado:Empleado){
     return new Promise(async (resolve,reject)=>{
       let doc=await this.afs.collection(EMPLEADOS_COLLECTION).add(empleado);

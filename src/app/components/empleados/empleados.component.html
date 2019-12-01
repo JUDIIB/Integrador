@@ -14,7 +14,9 @@
 
     </form>
     <br>
-    <table class="table table-striped">
+    <ngb-alert *ngIf="(empleados | async)?.length==0" type="primary" [dismissible]="false">No hay ningún empleado registrado
+    </ngb-alert>
+    <table class="table table-striped"  [hidden]="(empleados | async)?.length==0">
         <thead>
             <tr>
                 <th scope="col">DNI</th>
