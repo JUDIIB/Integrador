@@ -10,7 +10,7 @@ export const EMPLEADOS_COLLECTION="empleados"
 export class EmpleadosService {
   $empleados:BehaviorSubject<Empleado[]>=new BehaviorSubject(null);
   $filterTerm:BehaviorSubject<string>=new BehaviorSubject(null);
-  
+  // private empleadosMap=new Map<string,Empleado>();
   constructor(private afs:AngularFirestore) { 
 
     combineLatest(this.afs.collection<Empleado>(EMPLEADOS_COLLECTION).valueChanges(), this.$filterTerm).subscribe(
@@ -31,9 +31,7 @@ export class EmpleadosService {
 
   addEmpleado(empleado:Empleado){
     return new Promise(async (resolve,reject)=>{
-      let doc=await this.afs.collection(EMPLEADOS_COLLECTION).add(empleado);
-      //Obtiene el id del doc y lo setea como propiedad a fin de editar el documento después
-      this.afs.collection(EMPLEADOS_COLLECTION).doc(doc.id).update({id:doc.id});
+      let doc=await this.afs.collection<Empleado>(EMPLEADOS_COLLECTION).doc(empleado.dni.toString()).set({...empleado,id:empleado.dni});
       resolve();
     })
   }

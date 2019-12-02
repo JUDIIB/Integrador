@@ -2,10 +2,13 @@
     <form [formGroup]="filterForm">
 
         <div class="row">
-            <div class="col-md-9">
-                <input class="form-control " type="text" formControlName="filter" placeholder="Buscar vacación" />
-            </div>
             <div class="col-md-3">
+                <input class="form-control " type="text" formControlName="filter" placeholder="Buscar por DNI" />
+            </div>
+            <div class="col-md-7">
+                <app-range-datepicker-popup></app-range-datepicker-popup>
+            </div>
+            <div class="col-md-2">
                 <button type="button" class="btn btn-primary float-right" (click)="openModalAddVacacion('ADD')">
                     <fa-icon [icon]="faPlus"></fa-icon>Agregar vacación
                 </button>
@@ -14,7 +17,8 @@
 
     </form>
     <br>
-    <ngb-alert *ngIf="(vacaciones | async)?.length==0" type="primary" [dismissible]="false">No hay ninguna vacación registrada
+    <ngb-alert *ngIf="(vacaciones | async)?.length==0" type="primary" [dismissible]="false">No hay ninguna vacación
+        registrada
     </ngb-alert>
     <table class="table table-striped" [hidden]="(vacaciones | async)?.length==0">
         <thead>

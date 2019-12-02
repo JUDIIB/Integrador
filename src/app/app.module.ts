@@ -19,9 +19,10 @@ import { DecimalPipe } from '@angular/common';
 import { VacacionesAddEditComponent } from './components/vacaciones/vacaciones-add-edit/vacaciones-add-edit.component';
 import { RangeDatepickerComponent } from './shared/range-datepicker/range-datepicker.component';
 import { VacacionesService } from './services/vacaciones.service';
+import { RangeDatepickerPopupComponent } from './shared/range-datepicker-popup/range-datepicker-popup.component';
+
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
-
 // the second parameter is optional
 registerLocaleData(localeEsAr);
 
@@ -34,7 +35,8 @@ registerLocaleData(localeEsAr);
     EmpleadosAddEditComponent,
     NgbdModalConfirm,
     VacacionesAddEditComponent,
-    RangeDatepickerComponent
+    RangeDatepickerComponent,
+    RangeDatepickerPopupComponent
   ],
   entryComponents: [
     EmpleadosAddEditComponent,

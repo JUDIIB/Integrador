@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vacacion } from 'src/app/interfaces/vacacion.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VacacionesAddEditComponent } from './vacaciones-add-edit/vacaciones-add-edit.component';
-import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit, faTrash, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { VacacionesService } from 'src/app/services/vacaciones.service';
@@ -17,10 +17,13 @@ export class VacacionesComponent implements OnInit {
   faPlus=faPlus;
   faTrash=faTrash;
   faEdit=faEdit;
-
+  faCalendar=faCalendar;
+  
   vacaciones: Observable<Vacacion[]>;
   filterForm = new FormGroup({
-    'filter':new FormControl('')
+    'filter':new FormControl(''),
+    'fromDate':new FormControl(''),
+    'toDate':new FormControl('')
   })
   constructor(private modalService: NgbModal,private _vacacionesService:VacacionesService) { 
     this.vacaciones = _vacacionesService.getVacaciones();
