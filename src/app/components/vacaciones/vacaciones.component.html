@@ -6,7 +6,7 @@
                 <input class="form-control " type="text" formControlName="filter" placeholder="Buscar por DNI" />
             </div>
             <div class="col-md-7">
-                <app-range-datepicker-popup></app-range-datepicker-popup>
+                <app-range-datepicker-popup (dateChanged)="setDates($event)"></app-range-datepicker-popup>
             </div>
             <div class="col-md-2">
                 <button type="button" class="btn btn-primary float-right" (click)="openModalAddVacacion('ADD')">

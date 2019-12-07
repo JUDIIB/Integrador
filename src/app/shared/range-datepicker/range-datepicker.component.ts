@@ -29,7 +29,7 @@ export class RangeDatepickerComponent implements OnInit {
     this.fromDate = (this.fromDateInput)?this.parseDateAsNgbDate(new Date(this.fromDateInput)):this.calendar.getToday();
     this.toDate =  (this.toDateInput)?this.parseDateAsNgbDate(new Date(this.toDateInput)):this.calendar.getNext(this.calendar.getToday(), 'd', 10);
     // console.log(this.fromDate);
-  }
+  }   
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
