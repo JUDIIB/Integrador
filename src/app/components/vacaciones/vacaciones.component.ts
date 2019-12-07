@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { FormGroup,FormControl } from '@angular/forms';
 import { VacacionesService } from 'src/app/services/vacaciones.service';
 import { NgbdModalConfirm } from 'src/app/shared/modal-confirm/modal-confirm.component';
+import { DateRange } from 'src/app/interfaces/date-range.interface';
 
 @Component({
   selector: 'app-vacaciones',
@@ -25,12 +26,20 @@ export class VacacionesComponent implements OnInit {
     'fromDate': new FormControl(''),
     'toDate': new FormControl('')
   })
-  constructor(private modalService: NgbModal,private _vacacionesService: VacacionesService) {
-    this.vacaciones = _vacacionesService.getVacaciones();
+  constructor(private modalService: NgbModal,private vacacionesService: VacacionesService) {
+    this.vacaciones = vacacionesService.getVacaciones();
+    this.filterForm.valueChanges.subscribe(currentFilter=>{
+      vacacionesService.$filter.next(currentFilter);
+    })
   }
 
   ngOnInit() {
   }
+
+  setDates(date_range: DateRange) {
+    this.filterForm.controls['fromDate'].setValue(date_range.fromDate);
+    this.filterForm.controls['toDate'].setValue(date_range.toDate);
+  } 
 
   openModalAddVacacion(mode: 'ADD' | 'EDIT',vacacion?: Vacacion) {
     let modalRef = this.modalService.open(VacacionesAddEditComponent);
@@ -48,7 +57,7 @@ export class VacacionesComponent implements OnInit {
     modalRef.componentInstance.text_danger = "Esta acción no puede ser revertida";
     // modalRef.componentInstance.cbYes.bind(this);
     modalRef.componentInstance.cbYes = () => {
-      this._vacacionesService.deleteVacacion(vacacion)
+      this.vacacionesService.deleteVacacion(vacacion)
     }
 
   }
