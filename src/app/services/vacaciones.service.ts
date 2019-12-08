@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Vacacion } from '../interfaces/vacacion.interface';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { DateRange } from '../interfaces/date-range.interface';
-import * as moment  from 'moment'
+import * as moment from 'moment'
 
 export const VACACIONES_COLLECTION = "vacaciones"
 export interface FilterVacaciones extends DateRange {
@@ -28,10 +28,25 @@ export class VacacionesService {
 
   filterVacaciones(vacaciones: Vacacion[], filter: FilterVacaciones) {
     return vacaciones.filter(vacacion => {
-      const term = filter.filterString.toLowerCase();
-
-      return vacacion.descripcion.toLowerCase().includes(term)
-        && ( moment(vacacion.fecha_inicio).isSameOrBefore(filter.toDate) || moment(vacacion.fecha_fin).isSameOrAfter(filter.fromDate))
+      // console.log(filter);
+      const term = (filter.filterString)?filter.filterString.toString().toLowerCase():'';      
+      const includesNoEmptyTerm = (filter.filterString != '') ? vacacion.empleado_id.includes(term) : true;
+    
+      const vacacionInFilterRange=moment(vacacion.fecha_inicio).isBetween(filter.fromDate,filter.toDate) || moment(vacacion.fecha_fin).isBetween(filter.fromDate,filter.toDate);
+      const filterInVacationRange=moment(filter.fromDate).isBetween(vacacion.fecha_inicio,vacacion.fecha_fin) || moment(filter.toDate).isBetween(vacacion.fecha_inicio,vacacion.fecha_fin);
+      // Condicion Alternativa
+      /* VFI:Vacacion Fecha Inicio; VFF:Vacacion Fecha Fin; */
+      /* FFI:Filtro Fecha Inicio; FFF:Filtro Fecha Fin; */
+      /* const vacacionInRange =
+        // VFI--[FFI--VFF--FFF]
+        (moment(vacacion.fecha_inicio).isSameOrBefore(filter.toDate) && moment(vacacion.fecha_fin).isSameOrAfter(filter.fromDate))
+        // [FFI--VFI--FFF]--VFF
+        || (moment(vacacion.fecha_inicio).isSameOrBefore(filter.toDate) && moment(vacacion.fecha_fin).isSameOrAfter(filter.toDate))
+        // [FFI--VFI--VFF--FFF]
+        || (moment(vacacion.fecha_inicio).isSameOrAfter(filter.fromDate) && moment(vacacion.fecha_fin).isSameOrBefore(filter.fromDate))
+        // VFI--[FFI--FFF]--VFF
+        || (moment(vacacion.fecha_inicio).isSameOrBefore(filter.fromDate) && moment(vacacion.fecha_fin).isSameOrAfter(filter.toDate)); */
+      return includesNoEmptyTerm && (vacacionInFilterRange || filterInVacationRange)
     });
   }
 
