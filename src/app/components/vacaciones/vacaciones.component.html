@@ -3,7 +3,7 @@
 
         <div class="row">
             <div class="col-md-3">
-                <input class="form-control " type="text" formControlName="filter" placeholder="Buscar por DNI" />
+                <input class="form-control " type="number" formControlName="filterString" placeholder="Buscar por DNI" />
             </div>
             <div class="col-md-7">
                 <app-range-datepicker-popup (dateChanged)="setDates($event)"></app-range-datepicker-popup>
@@ -32,17 +32,14 @@
         <tbody>
             <tr *ngFor="let vacacion of vacaciones | async">
                 <th scope="row">
-                    <ngb-highlight [result]="vacacion.empleado_id" [term]="filterForm.controls['filter'].value">
+                    <ngb-highlight [result]="vacacion.empleado_id" [term]="filterForm.controls['filterString'].value">
                     </ngb-highlight>
                 </th>
                 <td>
-                    <ngb-highlight [result]="vacacion.descripcion" [term]="filterForm.controls['filter'].value">
-                    </ngb-highlight>
+                    {{vacacion.descripcion}}
                 </td>
                 <td>
-                    <ngb-highlight [result]="(vacacion.fecha_inicio | date)+' a '+ (vacacion.fecha_fin | date)"
-                        [term]="filterForm.controls['filter'].value">
-                    </ngb-highlight>
+                    {{(vacacion.fecha_inicio | date)+' a '+ (vacacion.fecha_fin | date)}}
                 </td>
                 <td>
                     <button type="button" class="btn btn-secondary" (click)="openModalAddVacacion('EDIT',vacacion)">

@@ -38,10 +38,10 @@ export class VacacionesAddEditComponent implements OnInit {
 
   formVacacion: FormGroup;
   constructor(public activeModal: NgbActiveModal,
-    private _empleadosService: EmpleadosService,
-    private _vacacionesService: VacacionesService) {
+    private empleadosService: EmpleadosService,
+    private vacacionesService: VacacionesService) {
     this.crearFormVacacion();
-    this.$empleados =_empleadosService.getEmpleados();
+    this.$empleados =empleadosService.getEmpleados();
   }
 
 
@@ -71,12 +71,12 @@ export class VacacionesAddEditComponent implements OnInit {
   }
 
   agregarDatos() {
-    // console.log(this.formVacacion.value);
-    this._vacacionesService.addVacacion(this.formVacacion.value)
+    console.log(this.formVacacion.value);
+    this.vacacionesService.addVacacion(this.formVacacion.value)
   }
 
   editarDatos() {
-    this._vacacionesService.editVacacion(this.formVacacion.value)
+    this.vacacionesService.editVacacion(this.formVacacion.value)
   }
 
 }

@@ -22,7 +22,7 @@ export class VacacionesComponent implements OnInit {
 
   vacaciones: Observable<Vacacion[]>;
   filterForm = new FormGroup({
-    'filter': new FormControl(''),
+    'filterString': new FormControl(''),
     'fromDate': new FormControl(''),
     'toDate': new FormControl('')
   })
