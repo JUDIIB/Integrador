@@ -18,6 +18,7 @@ export class VacacionesAddEditComponent implements OnInit {
   @Input() mode: 'ADD' | 'EDIT';
   @Input() vacacionToEdit: Vacacion;
   $empleados: Observable<Empleado[]>;
+  $empleadosSupervisores: Observable<Empleado[]>;
   updated: boolean = false;
   added: boolean = false;
 
@@ -33,15 +34,19 @@ export class VacacionesAddEditComponent implements OnInit {
     ],
     'empleado_id': [
       { type: 'required', message: 'Debe seleccionar el empleado' },
+    ],
+    'authorized_by_supervisor_id': [
+      { type: 'required', message: 'Debe seleccionar el supervisor que autorizó' },
     ]
   };
 
   formVacacion: FormGroup;
   constructor(public activeModal: NgbActiveModal,
-    private empleadosService: EmpleadosService,
-    private vacacionesService: VacacionesService) {
+    public empleadosService: EmpleadosService,
+    public vacacionesService: VacacionesService) {
     this.crearFormVacacion();
     this.$empleados =empleadosService.getEmpleados();
+    this.$empleadosSupervisores =empleadosService.getEmpleadosSupervisores();
   }
 
 
@@ -51,7 +56,8 @@ export class VacacionesAddEditComponent implements OnInit {
       'descripcion': new FormControl(null, Validators.required),
       'fecha_inicio': new FormControl(null, Validators.required),
       'fecha_fin': new FormControl(null, Validators.required),
-      'empleado_id': new FormControl(null, Validators.required)
+      'empleado_id': new FormControl(null, Validators.required),
+      'authorized_by_supervisor_id': new FormControl(null, Validators.required),
     });
     this.formVacacion.valueChanges.subscribe(newData => {
       this.added = false;

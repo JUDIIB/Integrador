@@ -3,6 +3,7 @@ import { Empleado } from '../interfaces/empleado.interface';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject,combineLatest } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
+import { ROLES } from './roles.data';
 export const EMPLEADOS_COLLECTION = "empleados"
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class EmpleadosService {
 
   getEmpleados() {
     return this.$empleados;
+  }
+
+  getEmpleadosSupervisores() {
+   return this.afs.collection<Empleado>(EMPLEADOS_COLLECTION,ref=>ref.where('rol','==',ROLES.SUPERVISOR)).valueChanges()
   }
 
   existeEmpleadoConDni(dni: number) {

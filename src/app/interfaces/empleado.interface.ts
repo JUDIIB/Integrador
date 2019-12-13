@@ -5,6 +5,7 @@ export interface Empleado {
   email:string,
   direccion: string;
   dni: number;
+  rol: string;
   telefono: number;
 }
 
@@ -13,6 +14,7 @@ export const defaultEmpleado:Empleado={
   nombre:'',
   email:'',
   direccion:'',
+  rol: '',
   dni:null,
   telefono:null
 }

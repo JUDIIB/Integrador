@@ -24,6 +24,18 @@
         </div>
 
         <div class="form-group">
+          <label for="authorized_by_supervisor_id">Supervisor</label>
+          <select formControlName="authorized_by_supervisor_id" id="authorized_by_supervisor_id" class="form-control">
+              <option [value]="empleadoSupervisor.id"  *ngFor="let empleadoSupervisor of $empleadosSupervisores | async">{{empleadoSupervisor.nombre}} {{empleadoSupervisor.apellido}}</option>
+          </select>
+          <ng-container *ngFor="let validation of validation_messages.authorized_by_supervisor_id">
+              <ngb-alert
+                  *ngIf="formVacacion.get('authorized_by_supervisor_id').hasError(validation.type) && (formVacacion.get('authorized_by_supervisor_id').dirty || formVacacion.get('authorized_by_supervisor_id').touched)"
+                  [type]="'danger'" [dismissible]="false">{{ validation.message }}</ngb-alert>
+          </ng-container>
+      </div>
+
+        <div class="form-group">
             <label for="descripcion">Descripción</label>
             <textarea formControlName="descripcion" id="descripcion" rows="5" class="form-control"
                 placeholder="Descripción de las vacaciones"></textarea>

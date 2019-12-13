@@ -29,11 +29,11 @@ export class VacacionesService {
   filterVacaciones(vacaciones: Vacacion[], filter: FilterVacaciones) {
     return vacaciones.filter(vacacion => {
       // console.log(filter);
-      const term = (filter.filterString)?filter.filterString.toString().toLowerCase():'';      
-      const includesNoEmptyTerm = (filter.filterString != '') ? vacacion.empleado_id.includes(term) : true;
-    
-      const vacacionInFilterRange=moment(vacacion.fecha_inicio).isBetween(filter.fromDate,filter.toDate) || moment(vacacion.fecha_fin).isBetween(filter.fromDate,filter.toDate);
-      const filterInVacationRange=moment(filter.fromDate).isBetween(vacacion.fecha_inicio,vacacion.fecha_fin) || moment(filter.toDate).isBetween(vacacion.fecha_inicio,vacacion.fecha_fin);
+      const dni = (filter.filterString)?filter.filterString.toString():'';
+      const includesNoEmptyDNI = (filter.filterString != '') ? vacacion.empleado_id.includes(dni) : true;
+
+      const vacacionInFilterRange=moment(vacacion.fecha_inicio).isBetween(filter.fromDate,filter.toDate, null, '[]') || moment(vacacion.fecha_fin).isBetween(filter.fromDate,filter.toDate, null, '[]');
+      const filterInVacationRange=moment(filter.fromDate).isBetween(vacacion.fecha_inicio,vacacion.fecha_fin, null, '[]') || moment(filter.toDate).isBetween(vacacion.fecha_inicio,vacacion.fecha_fin, null, '[]');
       // Condicion Alternativa
       /* VFI:Vacacion Fecha Inicio; VFF:Vacacion Fecha Fin; */
       /* FFI:Filtro Fecha Inicio; FFF:Filtro Fecha Fin; */
@@ -46,7 +46,7 @@ export class VacacionesService {
         || (moment(vacacion.fecha_inicio).isSameOrAfter(filter.fromDate) && moment(vacacion.fecha_fin).isSameOrBefore(filter.fromDate))
         // VFI--[FFI--FFF]--VFF
         || (moment(vacacion.fecha_inicio).isSameOrBefore(filter.fromDate) && moment(vacacion.fecha_fin).isSameOrAfter(filter.toDate)); */
-      return includesNoEmptyTerm && (vacacionInFilterRange || filterInVacationRange)
+      return includesNoEmptyDNI && (vacacionInFilterRange || filterInVacationRange)
     });
   }
 
