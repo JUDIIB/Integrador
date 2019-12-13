@@ -68,10 +68,10 @@ export class VacacionesAddEditComponent implements OnInit {
   setDates(date_range: DateRange) {
     this.formVacacion.controls['fecha_inicio'].setValue(date_range.fromDate);
     this.formVacacion.controls['fecha_fin'].setValue(date_range.toDate);
-  } 
+  }
 
   agregarDatos() {
-    console.log(this.formVacacion.value);
+    // console.log(this.formVacacion.value);
     this._vacacionesService.addVacacion(this.formVacacion.value)
   }
 
